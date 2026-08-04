@@ -1,23 +1,29 @@
-import feedparser
+import requests
+from bs4 import BeautifulSoup
 
-RSS = "https://www.boe.es/rss.php?c=BOE-S-2-B"
+URL = "https://www.valladolid.gob.es/es/tablon-oficial/ayuntamiento-valladolid/empleo-publico"
 
 
 def latest():
-    feed = feedparser.parse(RSS)
-
-    print("Status:", getattr(feed, "status", ""))
-    print("Entries:", len(feed.entries))
-    print("Bozo:", feed.bozo)
-
-    if not feed.entries:
-        return None
-
-    entry = feed.entries[0]
-
-    print("Título:", entry.title)
-
-    return (
-        entry.title,
-        entry.link,
+    r = requests.get(
+        URL,
+        timeout=30,
+        headers={
+            "User-Agent": "Mozilla/5.0"
+        },
     )
+    r.raise_for_status()
+
+    soup = BeautifulSoup(r.text, "html.parser")
+
+    title = None
+    link = URL
+
+    h2 = soup.find("h2")
+    if h2:
+        title = h2.get_text(" ", strip=True)
+
+    if not title:
+        title = "Empleo Público Valladolid"
+
+    return title, link
