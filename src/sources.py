@@ -1,6 +1,7 @@
 import feedparser
 
-RSS = "https://bocyl.jcyl.es"
+RSS = "https://www.boe.es/rss.php?c=BOE-S-2-B"
+
 
 def latest():
     feed = feedparser.parse(RSS)
@@ -9,8 +10,14 @@ def latest():
     print("Entries:", len(feed.entries))
     print("Bozo:", feed.bozo)
 
-    if feed.entries:
-        e = feed.entries[0]
-        return e.title, e.link
+    if not feed.entries:
+        return None
 
-    return None
+    entry = feed.entries[0]
+
+    print("Título:", entry.title)
+
+    return (
+        entry.title,
+        entry.link,
+    )
