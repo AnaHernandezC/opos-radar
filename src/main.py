@@ -1,14 +1,23 @@
 from sources import latest
 from notifier import send
-
-print("Iniciando...")
+from state import load, save
 
 item = latest()
-print(item)
 
-if item:
-    print("Enviando Telegram...")
-    send(f"BOCYL\n\n{item[0]}\n{item[1]}")
-    print("Enviado")
-else:
-    print("No hay elementos en el RSS")
+if not item:
+    raise SystemExit()
+
+title, url = item
+
+state = load()
+
+if state.get("last_url") == url:
+    print("Sin cambios")
+    raise SystemExit()
+
+send(f"{title}\n\n{url}")
+
+state["last_url"] = url
+save(state)
+
+print("Notificación enviada")
