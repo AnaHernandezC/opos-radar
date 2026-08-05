@@ -1,7 +1,7 @@
+from models import Opportunity
+
+
 class AgeSource:
 
-    def fetch(self):
-        """
-        Devuelve una lista de oportunidades.
-        """
+    def fetch(self) -> list[Opportunity]:
         return []
