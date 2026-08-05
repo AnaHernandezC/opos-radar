@@ -1,23 +1,27 @@
-from sources import latest
+from sources import SOURCES
 from notifier import send
-from state import load, save
+from state import load, save, get_last, set_last
 
-item = latest()
-
-if not item:
-    raise SystemExit()
-
-title, url = item
 
 state = load()
 
-if state.get("last_url") == url:
-    print("Sin cambios")
-    raise SystemExit()
+for source in SOURCES:
 
-send(f"{title}\n\n{url}")
+    item = source.latest()
 
-state["last_url"] = url
+    if not item:
+        continue
+
+    uid = item.uid()
+
+    if get_last(state, source.name) == uid:
+        print(f"{source.name}: sin cambios")
+        continue
+
+    send(item.message())
+
+    set_last(state, source.name, uid)
+
 save(state)
 
-print("Notificación enviada")
+print("Proceso terminado")
