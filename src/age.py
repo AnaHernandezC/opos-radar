@@ -3,5 +3,7 @@ from models import Opportunity
 
 class AgeSource:
 
-    def fetch(self) -> list[Opportunity]:
-        return []
+    name = "age"
+
+    def latest(self) -> Opportunity | None:
+        return None
