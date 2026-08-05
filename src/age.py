@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 from models import Opportunity
 
-URL = "https://administracion.gob.es/pag_Home/empleopublico/buscadorEmpleo.html"
+URL = "https://administracion.gob.es/pagFront/ofertasempleopublico/resultadosEmpleo.htm?referencia=&tipoConvocatoria=2&_ambitoGeografico=1&_comunidadAutonoma=1&_provincia=1&_tipoPlazo=1&_discapacidadGeneral=on&_discapacidadIntelectual=on&_tipoPersonal=1&tipoFechas=intervaloFechas&fechaPublicacionDesde=01%2F08%2F2025&fechaPublicacionHasta=04%2F08%2F2028&tipoPlazaPublicacion=&_tipoBusqueda=on&administracionConvocante=1&_administracionConvocante=1&nivelTitulacion=2&nivelTitulacion=3&_nivelTitulacion=1&orders=id&sort=desc&desde=1&tam=&txtClaveE=inform%C3%A1tica&viaAcceso=2&buscar=true"
 
 
 class AgeSource:
@@ -24,6 +24,11 @@ class AgeSource:
 
         soup = BeautifulSoup(r.text, "html.parser")
 
-        print(soup.title)
+        print("URL:", r.url)
+        print("STATUS:", r.status_code)
+        print("CONTENT-TYPE:", r.headers.get("content-type"))
+        print("=" * 80)
+        print(r.text[:4000])
+        print("=" * 80)
 
         return None
