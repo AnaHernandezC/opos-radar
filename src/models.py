@@ -13,10 +13,13 @@ class Opportunity:
 
     body: str = ""
     organization: str = ""
-    location: str = ""
 
     def uid(self) -> str:
-        """
-        Identificador único estable.
-        """
         return self.url
+
+    def message(self) -> str:
+        return (
+            f"📢 {self.source}\n\n"
+            f"{self.title}\n\n"
+            f"{self.url}"
+        )
