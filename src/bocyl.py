@@ -1,10 +1,12 @@
-from age import AgeSource
-from bocyl import BocylSource
+from models import Opportunity
 
-sources = [
-    BocylSource(),
-    AgeSource(),
+return [
+    Opportunity(
+        source="BOCYL",
+        title=title,
+        url=url,
+        published=published,
+        body=summary,
+        organization="Junta de Castilla y León",
+    )
 ]
-
-for source in sources:
-    items = source.fetch()
