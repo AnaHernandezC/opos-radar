@@ -25,15 +25,17 @@ class AgeSource:
 
         soup = BeautifulSoup(r.text, "html.parser")
 
-        print("\nBuscando texto...")
+        links = soup.find_all("a")
         
-        texto = soup.get_text(" ", strip=True)
+        print(f"Enlaces encontrados: {len(links)}")
         
-        indice = texto.find("GESTIÓN")
+        for link in links:
+            href = link.get("href", "")
+            texto = link.get_text(" ", strip=True)
         
-        print("ÍNDICE:", indice)
-        
-        if indice != -1:
-            print(texto[indice:indice + 1000])
+            if "GESTIÓN" in texto.upper() or "INFORMÁTICA" in texto.upper():
+                print("=" * 80)
+                print(texto)
+                print(href)
 
         return None
