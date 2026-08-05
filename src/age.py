@@ -25,24 +25,15 @@ class AgeSource:
 
         soup = BeautifulSoup(r.text, "html.parser")
 
-        print("\n" + "=" * 80)
-        print("Consultando AGE")
-        print("=" * 80)
+        print("\nBuscando texto...")
         
-        print("URL:", r.url)
-        print("STATUS:", r.status_code)
-        print("CONTENT-TYPE:", r.headers.get("content-type"))
-        print("LONGITUD:", len(r.text))
+        texto = soup.get_text(" ", strip=True)
         
-        print("\n--- PRIMEROS 500 CARACTERES (repr) ---")
-        print(repr(r.text[:500]))
+        indice = texto.find("GESTIÓN")
         
-        print("\n--- PRIMEROS 4000 CARACTERES ---")
-        print(r.text[:4000])
+        print("ÍNDICE:", indice)
         
-        print("\n--- ÚLTIMOS 500 CARACTERES ---")
-        print(r.text[-500:])
-        
-        print("=" * 80)
+        if indice != -1:
+            print(texto[indice:indice + 1000])
 
         return None
