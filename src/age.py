@@ -12,6 +12,7 @@ class AgeSource:
 
     def latest(self):
 
+        print("Consultando AGE...")
         r = requests.get(
             URL,
             timeout=30,
