@@ -1,0 +1,26 @@
+candidate:
+
+  titles:
+    - Ingeniera Técnica en Informática de Sistemas
+    - Técnico Superior en Administración de Sistemas Informáticos
+
+  levels:
+    - A2
+    - C1
+
+  preferred_locations:
+    - Valladolid
+    - Castilla y León
+    - Nacional
+
+  include_keywords:
+
+    - informática
+    - sistemas
+    - TIC
+    - administración electrónica
+    - transformación digital
+
+  exclude_keywords:
+
+    - promoción interna
