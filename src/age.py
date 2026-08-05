@@ -27,15 +27,17 @@ class AgeSource:
 
         links = soup.find_all("a")
         
-        print(f"Enlaces encontrados: {len(links)}")
-        
         for link in links:
             href = link.get("href", "")
-            texto = link.get_text(" ", strip=True)
+            title = link.get_text(" ", strip=True)
         
-            if "GESTIÓN" in texto.upper() or "INFORMÁTICA" in texto.upper():
-                print("=" * 80)
-                print(texto)
-                print(href)
-
+            if "GESTIÓN DE SISTEMAS E INFORMÁTICA" not in title:
+                continue
+        
+            return Opportunity(
+                source="AGE",
+                title=title,
+                url="https://administracion.gob.es" + href,
+            )
+        
         return None
