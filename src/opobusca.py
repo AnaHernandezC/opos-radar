@@ -1,4 +1,3 @@
-import re
 from urllib.parse import urljoin
 
 import requests
@@ -8,8 +7,6 @@ from models import Opportunity
 
 URL = "https://www.opobusca.com/oposiciones/valladolid"
 
-# Broad discovery filter. Intentionally less restrictive than official-source
-# filters so potential A2/labour opportunities are not silently discarded.
 KEYWORDS = [
     "TÉCNICO",
     "TÉCNICA",
@@ -17,15 +14,10 @@ KEYWORDS = [
     "SISTEMAS",
     "INGENIERO",
     "INGENIERA",
-    "GESTIÓN",
     "A2",
     "PERSONAL LABORAL",
     "LABORAL",
 ]
-
-# Accept individual opportunity pages from the main detail URL families.
-DETAIL_URL = re.compile(r"/((?:ofertas|convocatorias)/[^/]+/\d+)(?:$|[?#])")
-
 
 class OpoBuscaSource:
     name = "opobusca"
@@ -55,9 +47,9 @@ class OpoBuscaSource:
                 continue
 
             full_url = urljoin(URL, href)
-            if full_url in seen:
+            if full_url == URL or full_url in seen:
                 continue
-            if not DETAIL_URL.search(full_url):
+            if "/oposiciones/" not in full_url and "/convocatorias/" not in full_url and "/ofertas/" not in full_url:
                 continue
 
             seen.add(full_url)
