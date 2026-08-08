@@ -7,7 +7,11 @@ from bs4 import BeautifulSoup
 
 from models import Opportunity
 
-URL = "https://www.opobusca.com/oposiciones/valladolid"
+URLS = (
+    "https://www.opobusca.com/oposiciones/valladolid",
+    "https://www.opobusca.com/oposiciones/zamora",
+    "https://www.opobusca.com/oposiciones/palencia",
+)
 
 INCLUDE_KEYWORDS = [
     "TÉCNICO", "TÉCNICA", "INFORMÁTICA", "SISTEMAS",
@@ -21,34 +25,53 @@ EXCLUDE_KEYWORDS = [
 ]
 
 DETAIL_URL = re.compile(r"/(?:ofertas|convocatorias)/[^/]+/[^/]+/\d+(?:$|[?#])")
+DATE_RE = re.compile(r"(\d{2}/\d{2}/\d{4})")
 
 class OpoBuscaSource:
     name = "opobusca"
 
     def latest(self):
         print("Consultando OpoBusca...")
-        r = requests.get(URL, timeout=30, headers={"User-Agent": "Mozilla/5.0"})
-        r.raise_for_status()
-        soup = BeautifulSoup(r.text, "html.parser")
-        results, seen = [], set()
         cutoff = datetime.now() - timedelta(days=45)
+        results, seen = [], set()
 
-        for link in soup.find_all("a", href=True):
-            title = link.get_text(" ", strip=True)
-            normalized = title.upper()
-            full_url = urljoin(URL, link["href"])
+        for page_url in URLS:
+            r = requests.get(page_url, timeout=30, headers={"User-Agent": "Mozilla/5.0"})
+            r.raise_for_status()
+            soup = BeautifulSoup(r.text, "html.parser")
 
-            if not title or len(title) < 8 or full_url in seen:
-                continue
-            if not DETAIL_URL.search(full_url):
-                continue
-            if any(k in normalized for k in EXCLUDE_KEYWORDS):
-                continue
-            if not any(k in normalized for k in INCLUDE_KEYWORDS):
-                continue
+            for link in soup.find_all("a", href=True):
+                title = link.get_text(" ", strip=True)
+                normalized = title.upper()
+                full_url = urljoin(page_url, link["href"])
 
-            seen.add(full_url)
-            results.append(Opportunity(source="OpoBusca", title=title, url=full_url, organization="OpoBusca"))
+                if not title or len(title) < 8 or full_url in seen:
+                    continue
+                if not DETAIL_URL.search(full_url):
+                    continue
+                if any(k in normalized for k in EXCLUDE_KEYWORDS):
+                    continue
+                if not any(k in normalized for k in INCLUDE_KEYWORDS):
+                    continue
+
+                date_match = DATE_RE.search(title)
+                if date_match:
+                    published = datetime.strptime(date_match.group(1), "%d/%m/%Y")
+                    if published < cutoff:
+                        continue
+                else:
+                    published = None
+
+                seen.add(full_url)
+                results.append(
+                    Opportunity(
+                        source="OpoBusca",
+                        title=title,
+                        url=full_url,
+                        organization="OpoBusca",
+                        published=published,
+                    )
+                )
 
         print(f"OpoBusca: {len(results)} oportunidades de revisión")
         return results
