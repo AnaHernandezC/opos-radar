@@ -14,6 +14,11 @@ KEYWORDS = [
     "TÉCNICA",
 ]
 
+EXCLUDE_KEYWORDS = [
+    "NORMATIVA",
+    "NORMATIVA TÉCNICA",
+]
+
 
 class AdifSource:
     name = "adif"
@@ -38,6 +43,8 @@ class AdifSource:
             normalized = title.upper()
 
             if not title or not href:
+                continue
+            if any(keyword in normalized for keyword in EXCLUDE_KEYWORDS):
                 continue
             if not any(keyword in normalized for keyword in KEYWORDS):
                 continue
