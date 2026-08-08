@@ -1,5 +1,6 @@
 from sources import SOURCES
 from notifier import send
+from matcher import classify
 from state import load, save, get_last, set_last, is_seen, mark_seen
 
 
@@ -24,6 +25,7 @@ for source in SOURCES:
                 print(f"{source.name}: sin cambios para {uid}")
                 continue
 
+            item.match_level, item.match_reason = classify(item)
             send(item.message())
             mark_seen(state, uid)
             set_last(state, source.name, uid)
