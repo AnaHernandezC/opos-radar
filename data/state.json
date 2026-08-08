@@ -4,7 +4,11 @@
   "age": "https://administracion.gob.es/pagFront/ofertasempleopublico/detalleEmpleo.htm?idConvocatoria=218169&tipoBusqueda=&retorno=/pagFront/ofertasempleopublico/resultadosEmpleo.htm?referencia=$tipoConvocatoria=2$_ambitoGeografico=1$_comunidadAutonoma=1$_provincia=1$_tipoPlazo=1$_discapacidadGeneral=on$_discapacidadIntelectual=on$_tipoPersonal=1$tipoFechas=intervaloFechas$fechaPublicacionDesde=01%2F08%2F2025$fechaPublicacionHasta=04%2F08%2F2028$tipoPlazaPublicacion=$_tipoBusqueda=on$administracionConvocante=1$_administracionConvocante=1$nivelTitulacion=2$nivelTitulacion=3$_nivelTitulacion=1$orders=id$sort=desc$desde=1$tam=$txtClaveE=inform%C3%A1tica$viaAcceso=2$buscar=true",
   "seen": {
     "https://administracion.gob.es/pagFront/ofertasempleopublico/detalleEmpleo.htm?idConvocatoria=218169&tipoBusqueda=&retorno=/pagFront/ofertasempleopublico/resultadosEmpleo.htm?referencia=$tipoConvocatoria=2$_ambitoGeografico=1$_comunidadAutonoma=1$_provincia=1$_tipoPlazo=1$_discapacidadGeneral=on$_discapacidadIntelectual=on$_tipoPersonal=1$tipoFechas=intervaloFechas$fechaPublicacionDesde=01%2F08%2F2025$fechaPublicacionHasta=04%2F08%2F2028$tipoPlazaPublicacion=$_tipoBusqueda=on$administracionConvocante=1$_administracionConvocante=1$nivelTitulacion=2$nivelTitulacion=3$_nivelTitulacion=1$orders=id$sort=desc$desde=1$tam=$txtClaveE=inform%C3%A1tica$viaAcceso=2$buscar=true": true,
-    "https://www.adif.es/empresas-y-contratacion/normativa-tecnica": true
+    "https://www.adif.es/empresas-y-contratacion/normativa-tecnica": true,
+    "https://www.opobusca.com/ofertas/ingesa-instituto-nacional-de-gestion-sanitaria": true,
+    "https://www.opobusca.com/oposiciones/ingesa-instituto-nacional-de-gestion-sanitaria": true,
+    "https://www.opobusca.com/oposiciones/grupo-a2": true
   },
-  "adif": "https://www.adif.es/empresas-y-contratacion/normativa-tecnica"
+  "adif": "https://www.adif.es/empresas-y-contratacion/normativa-tecnica",
+  "opobusca": "https://www.opobusca.com/oposiciones/grupo-a2"
 }
