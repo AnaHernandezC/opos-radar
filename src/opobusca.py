@@ -1,6 +1,8 @@
+import re
+from urllib.parse import urljoin
+
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
 
 from models import Opportunity
 
@@ -20,6 +22,11 @@ KEYWORDS = [
     "PERSONAL LABORAL",
     "LABORAL",
 ]
+
+# OpoBusca has category/listing pages mixed with individual opportunity pages.
+# Only accept detail pages with a numeric record id; never send category pages
+# such as /oposiciones/ingesa... or /oposiciones/grupo-a2.
+DETAIL_URL = re.compile(r"/((?:ofertas|convocatorias)/[^/]+/\d+)(?:$|[?#])")
 
 
 class OpoBuscaSource:
@@ -52,7 +59,7 @@ class OpoBuscaSource:
             full_url = urljoin(URL, href)
             if full_url in seen:
                 continue
-            if not any(path in full_url for path in ("/ofertas/", "/oposiciones/")):
+            if not DETAIL_URL.search(full_url):
                 continue
 
             seen.add(full_url)
