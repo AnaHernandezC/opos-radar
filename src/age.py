@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 
 from models import Opportunity
 
@@ -10,38 +11,56 @@ KEYWORDS = [
     "TÉCNICOS AUXILIARES DE INFORMÁTICA",
 ]
 
+EXCLUDE_KEYWORDS = [
+    "TÉCNICO SUPERIOR",
+]
+
+
 class AgeSource:
 
     name = "age"
 
     def latest(self):
-
         print("Consultando AGE...")
+
         r = requests.get(
             URL,
             timeout=30,
-            headers={
-                "User-Agent": "Mozilla/5.0"
-            },
+            headers={"User-Agent": "Mozilla/5.0"},
         )
-
         r.raise_for_status()
 
         soup = BeautifulSoup(r.text, "html.parser")
+        results = []
+        seen_urls = set()
 
-        links = soup.find_all("a")
-        
-        for link in links:
+        for link in soup.find_all("a"):
             href = link.get("href", "")
             title = link.get_text(" ", strip=True)
+            normalized = title.upper()
 
-            if not any(keyword in title.upper() for keyword in KEYWORDS):
+            if not title or not href:
                 continue
-        
-            return Opportunity(
-                source="AGE",
-                title=title,
-                url="https://administracion.gob.es" + href,
+
+            if any(keyword in normalized for keyword in EXCLUDE_KEYWORDS):
+                continue
+
+            if not any(keyword in normalized for keyword in KEYWORDS):
+                continue
+
+            full_url = urljoin(URL, href)
+            if full_url in seen_urls:
+                continue
+
+            seen_urls.add(full_url)
+            results.append(
+                Opportunity(
+                    source="AGE",
+                    title=title,
+                    url=full_url,
+                    organization="Administración General del Estado",
+                )
             )
-        
-        return None
+
+        print(f"AGE: {len(results)} oportunidades coinciden con el filtro")
+        return results
