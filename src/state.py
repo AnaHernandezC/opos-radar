@@ -32,3 +32,12 @@ def get_last(state, source):
 
 def set_last(state, source, value):
     state[source] = value
+
+
+def is_seen(state, uid):
+    seen = state.get("seen", {})
+    return uid in seen
+
+
+def mark_seen(state, uid):
+    state.setdefault("seen", {})[uid] = True

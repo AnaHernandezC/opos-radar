@@ -1,3 +1,7 @@
+import re
+from datetime import datetime
+from urllib.parse import urljoin
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -10,38 +14,87 @@ KEYWORDS = [
     "TÉCNICOS AUXILIARES DE INFORMÁTICA",
 ]
 
-class AgeSource:
+EXCLUDE_KEYWORDS = [
+    "TÉCNICO SUPERIOR",
+]
 
+
+class AgeSource:
     name = "age"
 
     def latest(self):
-
         print("Consultando AGE...")
+
         r = requests.get(
             URL,
             timeout=30,
-            headers={
-                "User-Agent": "Mozilla/5.0"
-            },
+            headers={"User-Agent": "Mozilla/5.0"},
         )
-
         r.raise_for_status()
 
         soup = BeautifulSoup(r.text, "html.parser")
 
-        links = soup.find_all("a")
-        
-        for link in links:
+        for link in soup.find_all("a"):
             href = link.get("href", "")
             title = link.get_text(" ", strip=True)
+            normalized = title.upper()
 
-            if not any(keyword in title.upper() for keyword in KEYWORDS):
+            if not title or not href:
                 continue
-        
+
+            if any(keyword in normalized for keyword in EXCLUDE_KEYWORDS):
+                continue
+
+            if not any(keyword in normalized for keyword in KEYWORDS):
+                continue
+
+            detail_url = urljoin(URL, href)
+
+            try:
+                detail = requests.get(
+                    detail_url,
+                    timeout=30,
+                    headers={"User-Agent": "Mozilla/5.0"},
+                )
+                detail.raise_for_status()
+            except requests.RequestException as exc:
+                print(f"AGE: no se pudo consultar {detail_url}: {exc}")
+                continue
+
+            detail_soup = BeautifulSoup(detail.text, "html.parser")
+            text = detail_soup.get_text(" ", strip=True)
+
+            deadline = self._extract_deadline(text)
+
+            if deadline is None:
+                print(f"AGE: sin plazo identificable - {title}")
+                continue
+
+            if deadline.date() < datetime.now().date():
+                print(f"AGE: plazo vencido - {title} ({deadline.date()})")
+                continue
+
             return Opportunity(
                 source="AGE",
                 title=title,
-                url="https://administracion.gob.es" + href,
+                url=detail_url,
+                deadline=deadline,
+                body=text,
+                organization="Administración General del Estado",
             )
-        
+
+        print("AGE: ninguna oportunidad abierta coincide con el filtro")
         return None
+
+    @staticmethod
+    def _extract_deadline(text):
+        match = re.search(
+            r"(?:Hasta el|Hasta)\s+(\d{2}/\d{2}/\d{4})",
+            text,
+            flags=re.IGNORECASE,
+        )
+
+        if not match:
+            return None
+
+        return datetime.strptime(match.group(1), "%d/%m/%Y")
