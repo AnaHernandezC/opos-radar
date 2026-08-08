@@ -35,7 +35,9 @@ def classify(item):
             tags.append(location.title())
             break
 
-    if "Informática" in tags and any(level in tags for level in LEVEL_KEYWORDS):
+    # Un puesto claramente TIC/técnico es MATCH aunque la fuente no
+    # publique el grupo A1/A2/C1 en el título.
+    if "Informática" in tags:
         return "🟢 MATCH", " + ".join(tags)
 
     return "🟡 REVISAR", " + ".join(tags) if tags else "requiere revisión"
