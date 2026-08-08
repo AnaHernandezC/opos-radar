@@ -23,9 +23,7 @@ KEYWORDS = [
     "LABORAL",
 ]
 
-# OpoBusca has category/listing pages mixed with individual opportunity pages.
-# Only accept detail pages with a numeric record id; never send category pages
-# such as /oposiciones/ingesa... or /oposiciones/grupo-a2.
+# Accept individual opportunity pages from the main detail URL families.
 DETAIL_URL = re.compile(r"/((?:ofertas|convocatorias)/[^/]+/\d+)(?:$|[?#])")
 
 
