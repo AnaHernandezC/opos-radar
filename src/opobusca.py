@@ -6,6 +6,22 @@ from models import Opportunity
 
 URL = "https://www.opobusca.com/oposiciones/valladolid"
 
+# Broad discovery filter. Intentionally less restrictive than official-source
+# filters so potential A2/labour opportunities are not silently discarded.
+KEYWORDS = [
+    "TÉCNICO",
+    "TÉCNICA",
+    "INFORMÁTICA",
+    "SISTEMAS",
+    "INGENIERO",
+    "INGENIERA",
+    "GESTIÓN",
+    "A2",
+    "PERSONAL LABORAL",
+    "LABORAL",
+]
+
+
 class OpoBuscaSource:
     name = "opobusca"
 
@@ -26,16 +42,16 @@ class OpoBuscaSource:
         for link in soup.find_all("a", href=True):
             title = link.get_text(" ", strip=True)
             href = link["href"]
+            normalized = title.upper()
 
             if not title or len(title) < 8:
+                continue
+            if not any(keyword in normalized for keyword in KEYWORDS):
                 continue
 
             full_url = urljoin(URL, href)
             if full_url in seen:
                 continue
-
-            # OpoBusca is a discovery source: do not apply the restrictive
-            # professional/access filter used by official sources.
             if not any(path in full_url for path in ("/ofertas/", "/oposiciones/")):
                 continue
 
@@ -49,5 +65,5 @@ class OpoBuscaSource:
                 )
             )
 
-        print(f"OpoBusca: {len(results)} oportunidades detectadas")
+        print(f"OpoBusca: {len(results)} oportunidades de revisión")
         return results
