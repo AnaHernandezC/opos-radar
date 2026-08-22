@@ -3,6 +3,10 @@
   "ayuntamiento_valladolid": "https://www.valladolid.gob.es/es/tablon-oficial/ayuntamiento-valladolid-tablon-oficial/convocatoria-12-plazas-tecnico-administracion-general-2-pro",
   "age": "https://administracion.gob.es/pagFront/ofertasempleopublico/detalleEmpleo.htm?idConvocatoria=218169&tipoBusqueda=&retorno=/pagFront/ofertasempleopublico/resultadosEmpleo.htm?referencia=$tipoConvocatoria=2$_ambitoGeografico=1$_comunidadAutonoma=1$_provincia=1$_tipoPlazo=1$_discapacidadGeneral=on$_discapacidadIntelectual=on$_tipoPersonal=1$tipoFechas=intervaloFechas$fechaPublicacionDesde=01%2F08%2F2025$fechaPublicacionHasta=04%2F08%2F2028$tipoPlazaPublicacion=$_tipoBusqueda=on$administracionConvocante=1$_administracionConvocante=1$nivelTitulacion=2$nivelTitulacion=3$_nivelTitulacion=1$orders=id$sort=desc$desde=1$tam=$txtClaveE=inform%C3%A1tica$viaAcceso=2$buscar=true",
   "sacyl_gestion_informatica_a2": "https://www.saludcastillayleon.es/profesionales/es/recursos-humanos/convocatorias-especificas/gestion-informatica-a2",
+  "sacyl_gestion_informatica_a2_status": "radar_activo_sin_convocatoria_abierta_confirmada",
+  "sacyl_gestion_informatica_a2_tipo_personal": "personal_estatutario_temporal",
+  "sacyl_gestion_informatica_a2_ultima_actualizacion_visible": "2026-07-20",
+  "sacyl_gestion_informatica_a2_nota": "No confundir con una oposición A2 de funcionario. La página oficial agrupa convocatorias específicas para cobertura de personal estatutario temporal. A fecha 2026-08-22 no se identifica en la página una convocatoria abierta; las entradas visibles son resoluciones/procesos ya cerrados o bolsas ya constituidas. Mantener en radar porque existen precedentes recientes en Ávila, Valladolid y Zamora.",
   "seen": {
     "https://administracion.gob.es/pagFront/ofertasempleopublico/detalleEmpleo.htm?idConvocatoria=218169&tipoBusqueda=&retorno=/pagFront/ofertasempleopublico/resultadosEmpleo.htm?referencia=$tipoConvocatoria=2$_ambitoGeografico=1$_comunidadAutonoma=1$_provincia=1$_tipoPlazo=1$_discapacidadGeneral=on$_discapacidadIntelectual=on$_tipoPersonal=1$tipoFechas=intervaloFechas$fechaPublicacionDesde=01%2F08%2F2025$fechaPublicacionHasta=04%2F08%2F2028$tipoPlazaPublicacion=$_tipoBusqueda=on$administracionConvocante=1$_administracionConvocante=1$nivelTitulacion=2$nivelTitulacion=3$_nivelTitulacion=1$orders=id$sort=desc$desde=1$tam=$txtClaveE=inform%C3%A1tica$viaAcceso=2$buscar=true": true,
     "https://www.adif.es/empresas-y-contratacion/normativa-tecnica": true,
@@ -62,5 +66,5 @@
   },
   "adif": "https://www.adif.es/empresas-y-contratacion/normativa-tecnica",
   "opobusca": "https://www.opobusca.com/convocatorias/tecnico-de-empleo-e-insercion-sociolaboral/diputacion-provincial-de-valladolid-valladolid/126338",
-  "_matcher_version": "2026-08-22-v3"
+  "_matcher_version": "2026-08-22-v4"
 }
