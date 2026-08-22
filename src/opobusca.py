@@ -13,10 +13,13 @@ URLS = (
     "https://www.opobusca.com/oposiciones/palencia",
 )
 
+# OpoBusca is broad. The radar is not intended to surface generic
+# administration, employment, or technical posts that are unrelated to IT.
 INCLUDE_KEYWORDS = [
-    "TÉCNICO", "TÉCNICA", "INFORMÁTICA", "SISTEMAS",
-    "INGENIERO", "INGENIERA", "GESTIÓN", "ADMINISTRATIVO",
-    "ADMINISTRATIVA", "A2", "C1", "PERSONAL LABORAL", "LABORAL",
+    "INFORMÁTICA", "INFORMATICA", "SISTEMAS", "TIC",
+    "TECNOLOGÍAS DE LA INFORMACIÓN", "TECNOLOGIAS DE LA INFORMACION",
+    "TRANSFORMACIÓN DIGITAL", "TRANSFORMACION DIGITAL",
+    "ADMINISTRACIÓN ELECTRÓNICA", "ADMINISTRACION ELECTRONICA",
 ]
 
 EXCLUDE_KEYWORDS = [
@@ -27,6 +30,7 @@ EXCLUDE_KEYWORDS = [
 
 DETAIL_URL = re.compile(r"/(?:ofertas|convocatorias)/[^/]+/[^/]+/\d+(?:$|[?#])")
 DATE_RE = re.compile(r"(\d{2}/\d{2}/\d{4})")
+
 
 class OpoBuscaSource:
     name = "opobusca"
