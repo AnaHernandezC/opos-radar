@@ -3,7 +3,7 @@ from notifier import send
 from matcher import classify
 from state import load, save, get_last, set_last, is_seen, mark_seen
 
-MATCHER_VERSION = "2026-08-22-v4"
+MATCHER_VERSION = "2026-08-22-v5"
 
 state = load()
 reevaluate = state.get("_matcher_version") != MATCHER_VERSION
