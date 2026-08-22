@@ -16,8 +16,13 @@ URLS = (
 # OpoBusca is broad. The radar is not intended to surface generic
 # administration, employment, or technical posts that are unrelated to IT.
 INCLUDE_KEYWORDS = [
-    "INFORMÁTICA", "INFORMATICA", "SISTEMAS", "TIC",
-    "TECNOLOGÍAS DE LA INFORMACIÓN", "TECNOLOGIAS DE LA INFORMACION",
+    "INFORMÁTICA", "INFORMATICA", "INFORMÁTICO", "INFORMATICO",
+    "SISTEMAS", "TIC", "TECNOLOGÍAS DE LA INFORMACIÓN",
+    "TECNOLOGIAS DE LA INFORMACION", "INGENIERÍA INFORMÁTICA",
+    "INGENIERIA INFORMATICA", "INGENIERO INFORMÁTICO", "INGENIERO INFORMATICO",
+    "TÉCNICO DE INFORMÁTICA", "TECNICO DE INFORMATICA",
+    "TÉCNICO AUXILIAR DE INFORMÁTICA", "TECNICO AUXILIAR DE INFORMATICA",
+    "GESTIÓN INFORMÁTICA", "GESTION INFORMATICA",
     "TRANSFORMACIÓN DIGITAL", "TRANSFORMACION DIGITAL",
     "ADMINISTRACIÓN ELECTRÓNICA", "ADMINISTRACION ELECTRONICA",
 ]
@@ -30,7 +35,6 @@ EXCLUDE_KEYWORDS = [
 
 DETAIL_URL = re.compile(r"/(?:ofertas|convocatorias)/[^/]+/[^/]+/\d+(?:$|[?#])")
 DATE_RE = re.compile(r"(\d{2}/\d{2}/\d{4})")
-
 
 class OpoBuscaSource:
     name = "opobusca"
