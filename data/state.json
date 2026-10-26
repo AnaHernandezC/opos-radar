@@ -62,9 +62,10 @@
     "https://www.opobusca.com/ofertas/administrativo/aguilar-de-campoo-palencia/73865": true,
     "https://www.opobusca.com/ofertas/administrativo/valdestillas-valladolid/73983": true,
     "https://www.valladolid.gob.es/es/tablon-oficial/ayuntamiento-valladolid-tablon-oficial/convocatoria-provision-mediante-sistema-oposicion-turno-lib": true,
-    "https://www.opobusca.com/convocatorias/tecnico-de-hacienda/diputacion-provincial-de-palencia-palencia/127479": true
+    "https://www.opobusca.com/convocatorias/tecnico-de-hacienda/diputacion-provincial-de-palencia-palencia/127479": true,
+    "https://www.opobusca.com/convocatorias/administrativo/valdestillas-valladolid/127759": true
   },
   "adif": "https://www.adif.es/empresas-y-contratacion/normativa-tecnica",
-  "opobusca": "https://www.opobusca.com/convocatorias/tecnico-de-hacienda/diputacion-provincial-de-palencia-palencia/127479",
+  "opobusca": "https://www.opobusca.com/convocatorias/administrativo/valdestillas-valladolid/127759",
   "_matcher_version": "2026-08-08-v2"
 }
